@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "15.0.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "babel-jest": "^30.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.4",
+    "jest-environment-jsdom": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3",
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.82.0",
+    "bootstrap": "^5.3.7",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hot-toast": "^2.5.2",
+    "sass": "^1.89.2"
+  }
+}
