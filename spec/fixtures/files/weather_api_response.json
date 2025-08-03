@@ -1,0 +1,16 @@
+{
+  "location": {
+    "name": "Beverly Hills",
+    "region": "California",
+    "country": "USA"
+  },
+  "current": {
+    "temp_c": 25.4,
+    "feelslike_c": 27.1,
+    "condition": {
+      "text": "Sunny",
+      "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png"
+    },
+    "last_updated": "2025-08-02 10:00"
+  }
+}

@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "active_model_serializers"
 gem "bootsnap", require: false
+gem "geocoder"
 gem "httparty"
 gem "puma", ">= 5.0"
 gem "rails", "~> 8.0.2"
@@ -18,6 +19,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop-rails-omakase", require: false
   gem "selenium-webdriver"
+  gem "webmock"
 end
 
 group :development do
