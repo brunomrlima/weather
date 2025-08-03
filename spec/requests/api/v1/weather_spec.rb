@@ -22,5 +22,20 @@ RSpec.describe "Api::V1::Weathers", type: :request do
       json = JSON.parse(response.body)
       expect(json["data"]).to include("temperature_c", "condition")
     end
+
+    it "returns http error if weather service fails" do
+      bad_zip = "invalid"
+      error_url = "http://api.weatherapi.com/v1/forecast.json?key=#{api_key}&q=#{bad_zip}&days=5"
+
+      stub_request(:get, error_url)
+        .to_return(status: 400, body: "", headers: { "Content-Type" => "application/json" })
+
+      get "/api/v1/weather", params: { location: bad_zip }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      json = JSON.parse(response.body)
+      expect(json).to include("error")
+      expect(json["error"]).to match(/WeatherAPI request failed/)
+    end
   end
 end

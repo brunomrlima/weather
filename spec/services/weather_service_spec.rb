@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe WeatherService do
-  let(:zip_code) { "90210" }
+  let(:location) { "90210" }
   let(:api_key) { "test" }
-  let(:url) { "http://api.weatherapi.com/v1/forecast.json?key=#{api_key}&q=#{zip_code}&days=5" }
+  let(:url) { "http://api.weatherapi.com/v1/forecast.json?key=#{api_key}&q=#{location}&days=5" }
 
   before do
     stub_request(:get, url)
@@ -16,7 +16,7 @@ RSpec.describe WeatherService do
 
   describe "#fetch" do
     it "returns current weather, high/low (C/F), forecast, and hourly for a valid zip code" do
-      result = described_class.new(zip_code).fetch
+      result = described_class.new(location).fetch
 
       expect(result).to include(
         location: "Beverly Hills",
@@ -81,6 +81,20 @@ RSpec.describe WeatherService do
           )
         )
       )
+    end
+
+    it "raises WeatherError when the API request fails" do
+      bad_location = "invalid-location"
+      error_url = "http://api.weatherapi.com/v1/forecast.json?key=#{api_key}&q=#{bad_location}&days=5"
+
+      stub_request(:get, error_url)
+        .to_return(status: 400, body: "", headers: { "Content-Type" => "application/json" })
+
+      service = WeatherService.new(bad_location)
+
+      expect {
+        service.fetch
+      }.to raise_error(WeatherService::WeatherError, /WeatherAPI request failed/)
     end
 
     it "caches the forecast" do

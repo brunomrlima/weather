@@ -16,7 +16,7 @@ class WeatherService
 
     response = self.class.get("/forecast.json", query: query_params)
 
-    raise "WeatherAPI request failed: #{response.code}" unless response.success?
+    raise WeatherError, "WeatherAPI request failed: #{response.code}" unless response.success?
 
     parsed = parse_response(response.parsed_response)
     Rails.cache.write(cache_key, parsed, expires_in: CACHE_EXPIRY)
@@ -81,4 +81,6 @@ class WeatherService
       end
     }
   end
+
+  class WeatherError < StandardError; end
 end
