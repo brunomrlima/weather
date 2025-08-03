@@ -1,13 +1,8 @@
 import React from "react";
-import { HourlyData } from "../types";
 import { displayTemp } from "../utils/utils";
+import { HourlyForecastProps } from "../types";
 
-type Props = {
-    hourly: HourlyData[];
-    unit: "c" | "f";
-};
-
-const HourlyForecast: React.FC<Props> = ({ hourly, unit }) => {
+const HourlyForecast: React.FC<HourlyForecastProps> = ({ hourly, unit }) => {
     return (
         <div className="hourly-forecast">
             <h3>Hourly Forecast</h3>

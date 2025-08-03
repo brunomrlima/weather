@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ToggleButton from "./ToggleButton";
 import Forecast from "./Forecast";
 import CurrentWeather from "./CurrentWeather";
-import { TempUnit, WeatherCardProps } from "../types";
 import HourlyForecast from "./HourlyForecast";
+import TemperatureToggle from "./TemperatureToggle";
+import { TempUnit, WeatherCardProps } from "../types";
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
     const [unit, setUnit] = useState<TempUnit>("c");
@@ -25,14 +25,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
                     {data.from_cache ? "⚡ From Cache" : "🌐 Live Data"}
                 </span>
                 <div className="toggle-wrapper">
-                    <ToggleButton
-                        options={[
-                            { label: "°C", value: "c" },
-                            { label: "°F", value: "f" }
-                        ]}
-                        value={unit}
-                        onChange={(newValue) => setUnit(newValue as TempUnit)}
-                    />
+                    <TemperatureToggle value={unit} onChange={setUnit} />
                 </div>
             </div>
             <CurrentWeather weather={data.data} unit={unit} />

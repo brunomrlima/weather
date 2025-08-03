@@ -8,7 +8,7 @@ type ForecastDay = {
     low_f: number;
 };
 
-export type HourlyData = {
+type HourlyData = {
     time: string;
     temperature_c: number;
     temperature_f: number;
@@ -37,6 +37,8 @@ type WeatherData = {
     hourly: HourlyData[];
 };
 
+export type TempUnit = "c" | "f"
+
 export type WeatherCardProps = {
     data: {
         data: WeatherData;
@@ -46,12 +48,20 @@ export type WeatherCardProps = {
 
 export type CurrentWeatherProps = {
     weather: WeatherData;
-    unit: "c" | "f";
+    unit: TempUnit;
 };
 
 export type ForecastProps = {
     forecast: ForecastDay[];
-    unit: "c" | "f";
+    unit: TempUnit;
 };
 
-export type TempUnit = "c" | "f"
+export type TemperatureToggleProps = {
+    value: TempUnit;
+    onChange: (unit: TempUnit) => void;
+};
+
+export type HourlyForecastProps = {
+    hourly: HourlyData[];
+    unit: TempUnit;
+};
