@@ -1,0 +1,26 @@
+.toggle-button {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 1rem 0;
+
+  button {
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: #333;
+
+    &.active {
+      background-color: #0077cc;
+      color: white;
+    }
+
+    &:hover:not(.active) {
+      background-color: #f0f0f0;
+    }
+  }
+}

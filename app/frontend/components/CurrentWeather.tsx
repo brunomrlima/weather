@@ -1,0 +1,33 @@
+import React from "react";
+import { CurrentWeatherProps } from "../types";
+
+const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weather, unit }) => {
+    const {
+        condition,
+        icon_url,
+        temperature_c,
+        temperature_f,
+        feels_like_c,
+        feels_like_f,
+        last_updated,
+        today
+    } = weather;
+
+    const displayTemp = (c: number, f: number) =>
+        unit === "c" ? `${c}°C` : `${f}°F`;
+
+    return (
+        <div className="current-weather">
+            <img src={icon_url} alt={condition} />
+            <div>
+                <p><strong>Condition:</strong> {condition}</p>
+                <p><strong>Temperature:</strong> {displayTemp(temperature_c, temperature_f)}</p>
+                <p><strong>Feels Like:</strong> {displayTemp(feels_like_c, feels_like_f)}</p>
+                <p><strong>High / Low:</strong> {displayTemp(today.high_c, today.high_f)} / {displayTemp(today.low_c, today.low_f)}</p>
+                <p><small>Last Updated: {last_updated}</small></p>
+            </div>
+        </div>
+    );
+};
+
+export default CurrentWeather;

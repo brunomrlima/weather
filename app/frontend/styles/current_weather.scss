@@ -1,0 +1,19 @@
+.current-weather {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  align-items: center;
+
+  img {
+    width: 64px;
+    height: 64px;
+  }
+
+  p {
+    margin: 0.3rem 0;
+  }
+
+  small {
+    color: gray;
+  }
+}
