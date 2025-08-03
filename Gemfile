@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 gem "active_model_serializers"
 gem "bootsnap", require: false
-gem "geocoder"
 gem "httparty"
 gem "puma", ">= 5.0"
 gem "rails", "~> 8.0.2"

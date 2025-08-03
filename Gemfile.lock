@@ -122,9 +122,6 @@ GEM
       railties (>= 6.1.0)
     foreman (0.90.0)
       thor (~> 1.4)
-    geocoder (1.8.5)
-      base64 (>= 0.1.0)
-      csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.2.0)
@@ -363,7 +360,6 @@ DEPENDENCIES
   debug
   factory_bot_rails
   foreman
-  geocoder
   httparty
   puma (>= 5.0)
   rails (~> 8.0.2)
