@@ -6,7 +6,7 @@ type Props = {
     onSuccess: (data: any) => void;
 };
 
-const SearchBar: React.FC<Props> = ({ onSuccess }) => {
+const SearchBar: React.FC<Props> = ({onSuccess}) => {
     const [location, setLocation] = useState("");
 
     const mutation = useMutation({
@@ -22,25 +22,25 @@ const SearchBar: React.FC<Props> = ({ onSuccess }) => {
     };
 
     return (
-        <form className="search-bar" onSubmit={handleSubmit}>
+        <form className="search-bar" onSubmit={ handleSubmit }>
             <input
                 type="text"
                 placeholder="Enter city or ZIP code"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                disabled={mutation.isPending}
+                value={ location }
+                onChange={ (e) => setLocation(e.target.value) }
+                disabled={ mutation.isPending }
                 className="search-input"
             />
             <button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={ mutation.isPending }
                 className="search-button"
             >
-                {mutation.isPending ? "Searching..." : "Search"}
+                { mutation.isPending ? "Searching..." : "Search" }
             </button>
-            {mutation.isError && (
-                <p className="search-error">⚠️ Failed to fetch weather info</p>
-            )}
+            { mutation.isError && (
+                <p className="search-error">{ mutation.error.message }</p>
+            ) }
         </form>
     );
 };

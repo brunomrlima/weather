@@ -4,7 +4,7 @@ import "../styles/application.scss"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
-import WeatherCard from "../components/WeatherCard";
+import WeatherCard from "../components/weather/WeatherCard";
 import { ApiWeatherData } from "../types";
 
 const queryClient = new QueryClient();

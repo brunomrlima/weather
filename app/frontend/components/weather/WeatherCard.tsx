@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Forecast from "./Forecast";
+import DailyForecast from "./DailyForecast";
 import CurrentWeather from "./CurrentWeather";
 import HourlyForecast from "./HourlyForecast";
 import TemperatureToggle from "./TemperatureToggle";
-import { TempUnit, WeatherCardProps } from "../types";
+import { TempUnit, WeatherCardProps } from "../../types";
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
     const [unit, setUnit] = useState<TempUnit>("c");
@@ -30,7 +30,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
             </div>
             <CurrentWeather weather={data.data} unit={unit} />
             <HourlyForecast hourly={data.data.hourly} unit={unit} />
-            <Forecast forecast={forecast} unit={unit} />
+            <DailyForecast forecast={forecast} unit={unit} />
         </div>
     );
 };

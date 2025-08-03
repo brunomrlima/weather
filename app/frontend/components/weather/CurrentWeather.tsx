@@ -1,6 +1,6 @@
 import React from "react";
-import { CurrentWeatherProps } from "../types";
-import { displayTemp } from "../utils/utils";
+import { CurrentWeatherProps } from "../../types";
+import { displayTemp } from "../../utils/utils";
 
 const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weather, unit }) => {
     const {

@@ -1,6 +1,6 @@
 import React from "react";
-import { displayTemp } from "../utils/utils";
-import { HourlyForecastProps } from "../types";
+import { displayTemp } from "../../utils/utils";
+import { HourlyForecastProps } from "../../types";
 
 const HourlyForecast: React.FC<HourlyForecastProps> = ({ hourly, unit }) => {
     return (

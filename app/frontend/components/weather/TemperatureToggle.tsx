@@ -1,5 +1,5 @@
 import React from "react";
-import { TemperatureToggleProps } from "../types";
+import { TemperatureToggleProps } from "../../types";
 
 const TemperatureToggle: React.FC<TemperatureToggleProps> = ({ value, onChange }) => {
     return (

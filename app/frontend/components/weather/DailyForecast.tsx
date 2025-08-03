@@ -1,8 +1,8 @@
 import React from "react";
-import { ForecastProps } from "../types";
-import { displayTemp } from "../utils/utils";
+import { ForecastProps } from "../../types";
+import { displayTemp } from "../../utils/utils";
 
-const Forecast: React.FC<ForecastProps> = ({forecast, unit}) => {
+const DailyForecast: React.FC<ForecastProps> = ({forecast, unit}) => {
     return (
         <>
             <h3 className="forecast-heading">5-Day Forecast</h3>
@@ -20,4 +20,4 @@ const Forecast: React.FC<ForecastProps> = ({forecast, unit}) => {
     );
 };
 
-export default Forecast;
+export default DailyForecast;
