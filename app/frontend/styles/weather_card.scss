@@ -35,3 +35,15 @@
     text-align: left;
   }
 }
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.source-label {
+  font-size: 0.875rem;
+  color: gray;
+}

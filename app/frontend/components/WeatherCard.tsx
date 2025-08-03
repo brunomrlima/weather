@@ -19,19 +19,22 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
         <div className="weather-card">
             <div className="weather-header">
                 <h2>{location}, {region}, {country}</h2>
-                <span className="source-label">
-                  {data.from_cache ? "⚡ From Cache" : "🌐 Live Data"}
-                </span>
             </div>
-
-            <ToggleButton
-                options={[
-                    { label: "°C", value: "c" },
-                    { label: "°F", value: "f" }
-                ]}
-                value={unit}
-                onChange={(newValue) => setUnit(newValue as TempUnit)}
-            />
+            <div className="header-row">
+                <span className="source-label">
+                    {data.from_cache ? "⚡ From Cache" : "🌐 Live Data"}
+                </span>
+                <div className="toggle-wrapper">
+                    <ToggleButton
+                        options={[
+                            { label: "°C", value: "c" },
+                            { label: "°F", value: "f" }
+                        ]}
+                        value={unit}
+                        onChange={(newValue) => setUnit(newValue as TempUnit)}
+                    />
+                </div>
+            </div>
             <CurrentWeather weather={data.data} unit={unit} />
             <HourlyForecast hourly={data.data.hourly} unit={unit} />
             <Forecast forecast={forecast} unit={unit} />
