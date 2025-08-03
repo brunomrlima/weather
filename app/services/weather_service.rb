@@ -39,47 +39,65 @@ class WeatherService
   end
 
   def parse_response(data)
-    location = data["location"]
-    current = data["current"]
-    forecast_day = data["forecast"]["forecastday"]
     {
-      location: location["name"],
-      region: location["region"],
-      country: location["country"],
-      temperature_c: current["temp_c"],
-      temperature_f: current["temp_f"],
-      feels_like_c: current["feelslike_c"],
-      feels_like_f: current["feelslike_f"],
-      condition: current["condition"]["text"],
-      icon_url: "https:#{current['condition']['icon']}",
-      last_updated: current["last_updated"],
-      today: {
-        high_c: forecast_day.first["day"]["maxtemp_c"],
-        high_f: forecast_day.first["day"]["maxtemp_f"],
-        low_c:  forecast_day.first["day"]["mintemp_c"],
-        low_f:  forecast_day.first["day"]["mintemp_f"]
-      },
-      forecast: forecast_day.map do |day|
-        {
-          date: day["date"],
-          condition: day["day"]["condition"]["text"],
-          icon_url: "https:#{day['day']['condition']['icon']}",
-          high_c: day["day"]["maxtemp_c"],
-          high_f: day["day"]["maxtemp_f"],
-          low_c:  day["day"]["mintemp_c"],
-          low_f:  day["day"]["mintemp_f"]
-        }
-      end,
-      hourly: forecast_day.first["hour"].map do |h|
-        {
-          time: h["time"],
-          temperature_c: h["temp_c"],
-          temperature_f: h["temp_f"],
-          condition: h["condition"]["text"],
-          icon_url: "https:#{h['condition']['icon']}"
-        }
-      end
+      location: location_name(data),
+      region: data.dig("location", "region"),
+      country: data.dig("location", "country"),
+      temperature_c: data.dig("current", "temp_c"),
+      temperature_f: data.dig("current", "temp_f"),
+      feels_like_c: data.dig("current", "feelslike_c"),
+      feels_like_f: data.dig("current", "feelslike_f"),
+      condition: data.dig("current", "condition", "text"),
+      icon_url: icon_url(data.dig("current", "condition", "icon")),
+      last_updated: data.dig("current", "last_updated"),
+      today: build_today(data),
+      forecast: build_forecast(data),
+      hourly: build_hourly(data),
     }
+  end
+
+  def location_name(data)
+    data.dig("location", "name")
+  end
+
+  def icon_url(path)
+    "https:#{path}"
+  end
+
+  def build_today(data)
+    first_day = data.dig("forecast", "forecastday", 0, "day")
+    {
+      high_c: first_day["maxtemp_c"],
+      high_f: first_day["maxtemp_f"],
+      low_c:  first_day["mintemp_c"],
+      low_f:  first_day["mintemp_f"]
+    }
+  end
+
+  def build_forecast(data)
+    data.dig("forecast", "forecastday")&.map do |day|
+      {
+        date: day["date"],
+        condition: day.dig("day", "condition", "text"),
+        icon_url: icon_url(day.dig("day", "condition", "icon")),
+        high_c: day.dig("day", "maxtemp_c"),
+        high_f: day.dig("day", "maxtemp_f"),
+        low_c:  day.dig("day", "mintemp_c"),
+        low_f:  day.dig("day", "mintemp_f")
+      }
+    end
+  end
+
+  def build_hourly(data)
+    data.dig("forecast", "forecastday", 0, "hour")&.map do |h|
+      {
+        time: h["time"],
+        temperature_c: h["temp_c"],
+        temperature_f: h["temp_f"],
+        condition: h.dig("condition", "text"),
+        icon_url: icon_url(h.dig("condition", "icon"))
+      }
+    end
   end
 
   class WeatherError < StandardError; end
