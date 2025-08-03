@@ -6,6 +6,6 @@ class Api::V1::WeatherController < ApplicationController
   private
 
   def weather_params
-    params.require(:weather).permit(:location)
+    params.permit(:location)
   end
 end
