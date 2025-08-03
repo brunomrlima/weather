@@ -1,5 +1,6 @@
 import React from "react";
 import { HourlyData } from "../types";
+import { displayTemp } from "../utils/utils";
 
 type Props = {
     hourly: HourlyData[];
@@ -7,9 +8,6 @@ type Props = {
 };
 
 const HourlyForecast: React.FC<Props> = ({ hourly, unit }) => {
-    const displayTemp = (c: number, f: number) =>
-        unit === "c" ? `${c}°C` : `${f}°F`;
-
     return (
         <div className="hourly-forecast">
             <h3>Hourly Forecast</h3>
@@ -24,7 +22,7 @@ const HourlyForecast: React.FC<Props> = ({ hourly, unit }) => {
                         <div className="hour" key={hour.time}>
                             <p>{time}</p>
                             <img src={hour.icon_url} alt={hour.condition} />
-                            <p>{displayTemp(hour.temperature_c, hour.temperature_f)}</p>
+                            <p>{displayTemp(hour.temperature_c, hour.temperature_f, unit)}</p>
                         </div>
                     );
                 })}

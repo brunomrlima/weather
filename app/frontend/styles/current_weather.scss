@@ -1,8 +1,10 @@
 .current-weather {
   display: flex;
   gap: 1.5rem;
-  margin-top: 1rem;
+  margin: 1rem auto;
   align-items: center;
+  justify-content: center;
+  max-width: 500px;
 
   img {
     width: 64px;

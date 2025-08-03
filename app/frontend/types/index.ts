@@ -53,3 +53,5 @@ export type ForecastProps = {
     forecast: ForecastDay[];
     unit: "c" | "f";
 };
+
+export type TempUnit = "c" | "f"

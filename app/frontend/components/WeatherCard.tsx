@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import ToggleButton from "./ToggleButton";
 import Forecast from "./Forecast";
 import CurrentWeather from "./CurrentWeather";
-import { WeatherCardProps } from "../types";
+import { TempUnit, WeatherCardProps } from "../types";
 import HourlyForecast from "./HourlyForecast";
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
-    const [unit, setUnit] = useState<"c" | "f">("c");
+    const [unit, setUnit] = useState<TempUnit>("c");
 
     const {
         location,
@@ -14,9 +14,6 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
         country,
         forecast,
     } = data.data;
-
-    const displayTemp = (c: number, f: number) =>
-        unit === "c" ? `${c}°C` : `${f}°F`;
 
     return (
         <div className="weather-card">
@@ -33,7 +30,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
                     { label: "°F", value: "f" }
                 ]}
                 value={unit}
-                onChange={(newValue) => setUnit(newValue as "c" | "f")}
+                onChange={(newValue) => setUnit(newValue as TempUnit)}
             />
             <CurrentWeather weather={data.data} unit={unit} />
             <HourlyForecast hourly={data.data.hourly} unit={unit} />
