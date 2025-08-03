@@ -5,8 +5,8 @@ class WeatherService
   FORECAST_DAYS = 5
   CACHE_EXPIRY = 30.minutes
 
-  def initialize(zip_code)
-    @zip_code = zip_code
+  def initialize(location)
+    @location = location
     @api_key = Rails.application.credentials[Rails.env.to_sym][:weather_api][:api_key]
   end
 
@@ -27,13 +27,13 @@ class WeatherService
   private
 
   def cache_key
-    "weather_forecast:#{@zip_code}"
+    "weather_forecast:#{@location}"
   end
 
   def query_params
     {
       key: @api_key,
-      q: @zip_code,
+      q: @location,
       days: FORECAST_DAYS
     }
   end
