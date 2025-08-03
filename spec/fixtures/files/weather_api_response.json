@@ -28,7 +28,27 @@
             "text": "Sunny",
             "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png"
           }
-        }
+        },
+        "hour": [
+          {
+            "time": "2025-08-02 09:00",
+            "temp_c": 22.0,
+            "temp_f": 71.6,
+            "condition": {
+              "text": "Sunny",
+              "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png"
+            }
+          },
+          {
+            "time": "2025-08-02 12:00",
+            "temp_c": 25.0,
+            "temp_f": 77.0,
+            "condition": {
+              "text": "Sunny",
+              "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png"
+            }
+          }
+        ]
       },
       {
         "date": "2025-08-03",

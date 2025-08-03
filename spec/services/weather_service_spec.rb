@@ -15,7 +15,7 @@ RSpec.describe WeatherService do
   end
 
   describe "#fetch" do
-    it "returns current weather, high/low (C/F), and forecast for a valid zip code" do
+    it "returns current weather, high/low (C/F), forecast, and hourly for a valid zip code" do
       result = described_class.new(zip_code).fetch
 
       expect(result).to include(
@@ -53,6 +53,31 @@ RSpec.describe WeatherService do
             high_f: 85.1,
             low_c: 18.3,
             low_f: 64.9
+          ),
+          include(
+            date: "2025-08-04",
+            condition: "Cloudy",
+            icon_url: "https://cdn.weatherapi.com/weather/64x64/day/119.png",
+            high_c: 28.0,
+            high_f: 82.4,
+            low_c: 17.8,
+            low_f: 64.0
+          )
+        ),
+        hourly: a_collection_including(
+          include(
+            time: "2025-08-02 09:00",
+            temperature_c: 22.0,
+            temperature_f: 71.6,
+            condition: "Sunny",
+            icon_url: "https://cdn.weatherapi.com/weather/64x64/day/113.png"
+          ),
+          include(
+            time: "2025-08-02 12:00",
+            temperature_c: 25.0,
+            temperature_f: 77.0,
+            condition: "Sunny",
+            icon_url: "https://cdn.weatherapi.com/weather/64x64/day/113.png"
           )
         )
       )

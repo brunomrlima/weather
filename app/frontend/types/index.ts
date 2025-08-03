@@ -8,6 +8,14 @@ type ForecastDay = {
     low_f: number;
 };
 
+export type HourlyData = {
+    time: string;
+    temperature_c: number;
+    temperature_f: number;
+    condition: string;
+    icon_url: string;
+}
+
 type WeatherData = {
     condition: string;
     country: string;
@@ -26,6 +34,7 @@ type WeatherData = {
         low_f: number;
     };
     forecast: ForecastDay[];
+    hourly: HourlyData[];
 };
 
 export type WeatherCardProps = {

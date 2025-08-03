@@ -3,6 +3,7 @@ import ToggleButton from "./ToggleButton";
 import Forecast from "./Forecast";
 import CurrentWeather from "./CurrentWeather";
 import { WeatherCardProps } from "../types";
+import HourlyForecast from "./HourlyForecast";
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
     const [unit, setUnit] = useState<"c" | "f">("c");
@@ -35,6 +36,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
                 onChange={(newValue) => setUnit(newValue as "c" | "f")}
             />
             <CurrentWeather weather={data.data} unit={unit} />
+            <HourlyForecast hourly={data.data.hourly} unit={unit} />
             <Forecast forecast={forecast} unit={unit} />
         </div>
     );
