@@ -1,6 +1,10 @@
 # Rewards Redemption
-Please make sure to read the [Assumptions](#assumptions) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
+Please make sure to read the [Limitations](#limitations) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
 
+### Tech stack
+- **Ruby on Rails** as backend framework (API mode only)
+- **React (typed in Typescript)** as frontend framework
+- **REST** as API
 
 ### Prerequisites
 - **Ruby** `3.4.3`
@@ -11,21 +15,21 @@ Please make sure to read the [Assumptions](#assumptions) and [Technical Decision
 ```bash
 bundle install
 yarn install
-bin/rails db:setup
 ```
 
 ### Starting the application
 ```bash
 bin/dev
 ```
-This will run both the Rails server (port 3000) and the Vite server (frontend)
+This will run both the Rails server (port 3000), the Vite server (frontend), and the Redis server (caching)
 
 Visit the app: `localhost:3000`
 
 ### Running tests
 #### Backend and E2E specs
-I'm using RSpec for backend specs. And for end-to-end specs I'm using Capybara. Running the following command will run
-all the backend and E2E specs.
+I'm using RSpec for backend specs. 
+End-to-end specs were not implemented at this time. 
+Running the following command will run all backend specs
 ```bash
 bundle exec rspec
 ```
@@ -65,3 +69,41 @@ This keeps components lean and focused on UI, not data fetching logic.
 - A professional look without investing time in custom styling.
 
 It allowed the project to remain visually clean and usable, without requiring a heavy frontend design phase.
+
+### Limitations
+
+- **Location Input Depends on WeatherAPI Parsing**  
+The app sends raw location strings (e.g., `"Toronto"`, `"90210"`) to WeatherAPI, which may not always resolve as 
+expected. Misspelled or ambiguous locations can result in errors or inaccurate data.
+
+- **Caching Is Based on Raw Location Input**  
+Weather data is cached for 30 minutes by location input string. This may result in duplicate API calls if different 
+but equivalent location names are entered (e.g., `"London, Ontario"` vs. `"London, Ontario, Canada"`).
+
+- **Basic Error Handling**  
+Errors are displayed with a generic fallback message.
+
+- **No Authentication or Rate Limit Handling**  
+The application does not include user accounts or mechanisms to guard against abuse of the WeatherAPI 
+key or gracefully handle rate-limiting scenarios.
+
+- **Limited Data Granularity**  
+Hourly forecasts are only provided for the current day, and forecast data is limited to 5 days ahead. 
+Historical weather data is not supported.
+- 
+- **No Autocomplete or Location Normalization**  
+The app does not use an address autocomplete or normalization API (like Google Places), so users may enter 
+inconsistent formats that prevent caching from being effective.
+
+### Some Future Improvements
+- **Autocomplete with Google Maps API**  
+Integrate Google Places Autocomplete to normalize location input, improving cache hits and user experience.
+
+- **Enhance error handling in the frontend**
+Right now it just returns a generic message. It should return a user-friendly error (coming from the backend)
+
+- **Persist User Preferences**  
+Store temperature unit preference (°C/°F) in local storage or cookies so it persists across sessions.
+
+- **Persist Favorite Places**
+Create table and save favorite places that the user could have. 
