@@ -14,10 +14,19 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weather, unit }) => {
         today
     } = weather;
 
+    const displayDate = new Date(last_updated);
+    const formattedDate = displayDate.toLocaleDateString(undefined, {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
     return (
         <div className="current-weather">
             <img src={icon_url} alt={condition} />
             <div>
+                <p><strong>{formattedDate}</strong></p>
                 <p><strong>Condition:</strong> {condition}</p>
                 <p><strong>Temperature:</strong> {displayTemp(temperature_c, temperature_f, unit)}</p>
                 <p><strong>Feels Like:</strong> {displayTemp(feels_like_c, feels_like_f, unit)}</p>
