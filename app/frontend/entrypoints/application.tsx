@@ -5,11 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
+import { ApiWeatherData } from "../types";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-    const [weatherData, setWeatherData] = useState<any>(null);
+    const [weatherData, setWeatherData] = useState<ApiWeatherData | null>(null);
 
     return (
         <QueryClientProvider client={ queryClient }>

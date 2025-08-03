@@ -3,6 +3,7 @@ class WeatherService
   base_uri "http://api.weatherapi.com/v1"
 
   FORECAST_DAYS = 5
+  CACHE_EXPIRY = 30.minutes
 
   def initialize(zip_code)
     @zip_code = zip_code
@@ -10,14 +11,24 @@ class WeatherService
   end
 
   def fetch
+    cached = Rails.cache.read(cache_key)
+    return cached.merge(from_cache: true) if cached
+
     response = self.class.get("/forecast.json", query: query_params)
 
     raise "WeatherAPI request failed: #{response.code}" unless response.success?
 
-    parse_response(response.parsed_response)
+    parsed = parse_response(response.parsed_response)
+    Rails.cache.write(cache_key, parsed, expires_in: CACHE_EXPIRY)
+
+    parsed.merge(from_cache: false)
   end
 
   private
+
+  def cache_key
+    "weather_forecast:#{@zip_code}"
+  end
 
   def query_params
     {

@@ -82,5 +82,16 @@ RSpec.describe WeatherService do
         )
       )
     end
+
+    it "caches the forecast" do
+      Rails.cache.clear
+      expect(Rails.cache.exist?("weather_forecast:90210")).to be_falsey
+
+      result = WeatherService.new("90210").fetch
+      expect(result[:from_cache]).to be_falsey
+
+      result2 = WeatherService.new("90210").fetch
+      expect(result2[:from_cache]).to be_truthy
+    end
   end
 end

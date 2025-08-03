@@ -22,7 +22,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
             </div>
             <div className="header-row">
                 <span className="source-label">
-                    {data.from_cache ? "⚡ From Cache" : "🌐 Live Data"}
+                    {data.data.from_cache ? "⚡ From Cache" : "🌐 Live Data"}
                 </span>
                 <div className="toggle-wrapper">
                     <TemperatureToggle value={unit} onChange={setUnit} />

@@ -35,15 +35,17 @@ type WeatherData = {
     };
     forecast: ForecastDay[];
     hourly: HourlyData[];
+    from_cache: boolean;
 };
 
 export type TempUnit = "c" | "f"
 
+export type ApiWeatherData = {
+    data: WeatherData
+}
+
 export type WeatherCardProps = {
-    data: {
-        data: WeatherData;
-        from_cache: boolean;
-    };
+    data: ApiWeatherData;
 };
 
 export type CurrentWeatherProps = {
