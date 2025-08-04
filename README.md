@@ -1,5 +1,7 @@
-# Weather
+# Weather App
 Please make sure to read the [Environment Variables Setup](#environment-variables-setup), [Limitations](#limitations) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
+
+![Weather App Screenshot](./public/FinalProduct.png)
 
 ### Tech stack
 - **Ruby on Rails** as backend framework (API mode only)
