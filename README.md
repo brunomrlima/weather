@@ -1,4 +1,4 @@
-# Rewards Redemption
+# Weather
 Please make sure to read the [Limitations](#limitations) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
 
 ### Tech stack
@@ -21,7 +21,7 @@ yarn install
 ```bash
 bin/dev
 ```
-This will run both the Rails server (port 3000), the Vite server (frontend), and the Redis server (caching)
+This will run the Rails server (port 3000), the Vite server (frontend), and the Redis server (caching)
 
 Visit the app: `localhost:3000`
 
@@ -46,29 +46,61 @@ rubocop
 rubocop --auto-gen-config
 ```
 
-### Technical Decisions
-#### Why Vite?
-[Vite](https://vitejs.dev/) was chosen as the frontend build tool for its blazing-fast hot module replacement,
-modern ES module support, and great integration with React and Rails via `vite-plugin-ruby`.
-It significantly improves developer experience over Webpacker and other traditional Rails asset pipelines.
+### Decomposition of the Objects
+#### `WeatherService`
+- **Purpose**: Encapsulates logic for fetching and parsing weather data from the external WeatherAPI.
+- **Responsibilities**:
+    - Builds and sends HTTP requests to the API.
+    - Parses and formats the API response into a structured hash.
+    - Caches responses by ZIP code using `Rails.cache` (Redis in production).
+- **Key Methods**:
+    - `fetch`: Returns weather data, either from cache or by making an API call.
+    - `parse_response`: Extracts and organizes current, daily, and hourly forecast data.
 
-#### Why TanStack Query (React Query)?
-[@tanstack/react-query](https://tanstack.com/query/latest) is used to manage API state and server-side caching in a
-clean, declarative way. It provides:
-- Automatic caching and background refreshing of data.
-- Built-in loading and error handling states.
-- Mutations with optimistic updates and side effect tracking.
-- A clean abstraction away from `useEffect` + `useState` data fetching logic.
+#### `Api::V1::WeatherController`
+- **Purpose**: Handles weather API requests from the frontend.
+- **Responsibilities**:
+    - Accepts `location` as a query parameter.
+    - Calls `WeatherService` to retrieve data.
+    - Handles and returns structured error responses in JSON.
 
-This keeps components lean and focused on UI, not data fetching logic.
+### Frontend (React + TypeScript)
 
-#### Why Bootstrap?
-[Bootstrap 5](https://getbootstrap.com/) was chosen for:
-- Rapid prototyping and mobile responsiveness.
-- A familiar utility-first CSS system for layout and spacing.
-- A professional look without investing time in custom styling.
+#### `SearchBar`
+- **Purpose**: Allows users to enter a location to query weather.
+- **Responsibilities**:
+    - Manages form state and submission.
+    - Triggers weather data fetch via API.
+    - 
+#### `CurrentWeather`
+- **Purpose**: Displays current weather information.
+- **Props**:
+    - `weather`: Weather data object.
+    - `unit`: `"c"` or `"f"` for Celsius or Fahrenheit.
+- **Displays**:
+    - Weather condition and icon
+    - Current temperature
+    - Feels like temperature
+    - High/Low temperature
+    - Day and date
 
-It allowed the project to remain visually clean and usable, without requiring a heavy frontend design phase.
+#### `DailyForecast`
+- **Purpose**: Renders a 5-day weather forecast.
+- **Props**:
+    - `forecast`: Array of daily forecast objects.
+    - `unit`: Selected temperature unit.
+
+#### `HourlyForecast`
+- **Purpose**: Displays hourly forecast for the current day.
+- **Props**:
+    - `hourly`: Array of hourly forecast objects.
+    - `unit`: Selected temperature unit.
+
+#### `TemperatureToggle`
+- **Purpose**: Allows the user to toggle between Celsius and Fahrenheit.
+- **Props**:
+    - `value`: Current unit.
+    - `onChange`: Callback when unit is changed.
 
 ### Limitations
 
@@ -106,4 +138,28 @@ Right now it just returns a generic message. It should return a user-friendly er
 Store temperature unit preference (°C/°F) in local storage or cookies so it persists across sessions.
 
 - **Persist Favorite Places**
-Create table and save favorite places that the user could have. 
+Create table and save favorite places that the user could have.
+
+### Technical Decisions
+#### Why Vite?
+[Vite](https://vitejs.dev/) was chosen as the frontend build tool for its blazing-fast hot module replacement,
+modern ES module support, and great integration with React and Rails via `vite-plugin-ruby`.
+It significantly improves developer experience over Webpacker and other traditional Rails asset pipelines.
+
+#### Why TanStack Query (React Query)?
+[@tanstack/react-query](https://tanstack.com/query/latest) is used to manage API state and server-side caching in a
+clean, declarative way. It provides:
+- Automatic caching and background refreshing of data.
+- Built-in loading and error handling states.
+- Mutations with optimistic updates and side effect tracking.
+- A clean abstraction away from `useEffect` + `useState` data fetching logic.
+
+This keeps components lean and focused on UI, not data fetching logic.
+
+#### Why Bootstrap?
+[Bootstrap 5](https://getbootstrap.com/) was chosen for:
+- Rapid prototyping and mobile responsiveness.
+- A familiar utility-first CSS system for layout and spacing.
+- A professional look without investing time in custom styling.
+
+It allowed the project to remain visually clean and usable, without requiring a heavy frontend design phase.
