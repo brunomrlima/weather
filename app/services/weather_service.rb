@@ -52,7 +52,7 @@ class WeatherService
       last_updated: data.dig("current", "last_updated"),
       today: build_today(data),
       forecast: build_forecast(data),
-      hourly: build_hourly(data),
+      hourly: build_hourly(data)
     }
   end
 
