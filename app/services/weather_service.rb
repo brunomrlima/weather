@@ -7,7 +7,7 @@ class WeatherService
 
   def initialize(location)
     @location = location
-    @api_key = Rails.application.credentials[Rails.env.to_sym][:weather_api][:api_key]
+    @api_key = ENV["WEATHER_API_KEY"]
   end
 
   def fetch

@@ -1,6 +1,9 @@
 export const getWeatherInfo = async (location: string) => {
-    const response = await fetch(`/api/v1/weather?location=${location}`, {
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+    const response = await fetch(`/api/v1/weather?location=${encodeURIComponent(location)}`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        }
     });
 
     if (!response.ok) {
