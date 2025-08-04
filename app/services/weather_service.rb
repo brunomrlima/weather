@@ -7,7 +7,7 @@ class WeatherService
 
   def initialize(location)
     @location = location
-    @api_key = ENV["WEATHER_API_KEY"]
+    @api_key = api_key
   end
 
   def fetch
@@ -25,6 +25,12 @@ class WeatherService
   end
 
   private
+
+  def api_key
+    return "test" if Rails.env.test?
+
+    ENV["WEATHER_API_KEY"]
+  end
 
   def cache_key
     "weather_forecast:#{@location}"
