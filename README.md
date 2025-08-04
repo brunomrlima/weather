@@ -1,5 +1,5 @@
 # Weather
-Please make sure to read the [Limitations](#limitations) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
+Please make sure to read the [Environment Variables Setup](#environment-variables-setup), [Limitations](#limitations) and [Technical Decisions](#technical-decisions) sections before analyzing the code.
 
 ### Tech stack
 - **Ruby on Rails** as backend framework (API mode only)
@@ -16,6 +16,25 @@ Please make sure to read the [Limitations](#limitations) and [Technical Decision
 bundle install
 yarn install
 ```
+
+## Environment Variables Setup
+This App requires your personal API key to run correctly. Please do not try to run the application before getting your 
+API key.
+
+### 0. Create account on [Weather API](https://www.weatherapi.com/)
+Create your account and copy your api key. It's free.
+
+### 1. Copy the Example File
+```bash
+cp .env.example .env
+```
+
+### 2. Edit .env file
+Paste your api key:
+```bash
+WEATHER_API_KEY=<your_weatherapi_key_here>
+```
+You should be all set to start the application now.
 
 ### Starting the application
 ```bash
