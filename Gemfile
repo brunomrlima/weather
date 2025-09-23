@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "bootsnap", require: false
 gem "httparty"
 gem "puma", ">= 5.0"
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.0.3"
 gem "redis"
 gem "sqlite3", ">= 2.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
